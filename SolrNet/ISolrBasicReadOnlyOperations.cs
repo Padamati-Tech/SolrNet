@@ -18,6 +18,7 @@ using System.Collections.Generic;
 using SolrNet.Commands.Parameters;
 using SolrNet.Impl;
 using SolrNet.Schema;
+using System.Xml.Linq;
 
 namespace SolrNet {
     /// <summary>
@@ -32,6 +33,15 @@ namespace SolrNet {
         /// <param name="options"></param>
         /// <returns></returns>
         SolrQueryResults<T> Query(ISolrQuery query, QueryOptions options);
+        
+        /// <summary>
+        /// Executes a query returns xml
+        /// </summary>
+        /// <param name="query"></param>
+        /// <param name="options"></param>
+        /// <param name="xmlResultEnable"></param>
+        /// <returns></returns>
+        XDocument Query(ISolrQuery q, QueryOptions options, bool xmlResultEnable);
 
         /// <summary>
         /// Executes a MoreLikeThisHandler query
