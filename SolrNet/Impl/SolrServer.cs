@@ -1,4 +1,4 @@
-﻿#region license
+#region license
 // Copyright (c) 2007-2010 Mauricio Scheffer
 // 
 // Licensed under the Apache License, Version 2.0 (the "License");
@@ -22,6 +22,7 @@ using SolrNet.Commands.Parameters;
 using SolrNet.Exceptions;
 using SolrNet.Mapping.Validation;
 using SolrNet.Schema;
+using System.Xml.Linq;
 
 namespace SolrNet.Impl {
     /// <summary>
@@ -49,7 +50,10 @@ namespace SolrNet.Impl {
             return basicServer.Query(query, options);
         }
 
-        
+        public XDocument Query(ISolrQuery query, QueryOptions options, bool xmlResultEnable)
+        {
+            return basicServer.Query(query, options,xmlResultEnable);
+        }
 
         public ResponseHeader Ping() {
             return basicServer.Ping();
@@ -108,6 +112,24 @@ namespace SolrNet.Impl {
                 Rows = 0,
                 Facet = new FacetParameters {
                     Queries = new[] {facet},
+                },
+            });
+            return r.FacetFields[facet.Field];
+        }
+
+        /// <summary>
+        /// Executes a facet field query only
+        /// </summary>
+        /// <param name="facet"></param>
+        /// <returns></returns>
+        public ICollection<KeyValuePair<string, int>> FacetIntervalQuery(SolrFacetIntervalQuery facet)
+        {
+            var r = basicServer.Query(SolrQuery.All, new QueryOptions
+            {
+                Rows = 0,
+                Facet = new FacetParameters
+                {
+                    Queries = new[] { facet },
                 },
             });
             return r.FacetFields[facet.Field];
