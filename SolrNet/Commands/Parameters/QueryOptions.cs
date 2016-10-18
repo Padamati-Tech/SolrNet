@@ -84,6 +84,11 @@ namespace SolrNet.Commands.Parameters {
         /// This parmeter can be used to group query results into clusters based on document similarity 
         /// </summary>
         public ClusteringParameters Clustering { get; set; }
+		
+	/// <summary>
+        /// This parmeter can be used for Shards 
+        /// </summary>
+        public string Shards { get; set; }
 
 	    public QueryOptions() {
 			OrderBy = new List<SortOrder>();
