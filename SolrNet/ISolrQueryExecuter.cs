@@ -17,6 +17,7 @@
 using System.Collections.Generic;
 using SolrNet.Commands.Parameters;
 using SolrNet.Impl;
+using System.Xml.Linq;
 
 namespace SolrNet {
 	/// <summary>
@@ -29,6 +30,7 @@ namespace SolrNet {
 		/// </summary>
 		/// <returns>query results</returns>
 		SolrQueryResults<T> Execute(ISolrQuery q, QueryOptions options);
+		XDocument Execute(ISolrQuery q, QueryOptions options, bool xmlResultEnable);
 
         SolrMoreLikeThisHandlerResults<T> Execute(SolrMLTQuery query, MoreLikeThisHandlerQueryOptions options);
 	}
