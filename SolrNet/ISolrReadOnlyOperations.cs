@@ -68,5 +68,12 @@ namespace SolrNet {
         /// <param name="facets"></param>
         /// <returns></returns>
         ICollection<KeyValuePair<string, int>> FacetFieldQuery(SolrFacetFieldQuery facets);
+        
+        /// <summary>
+        /// Executes a single facet interval query
+        /// </summary>
+        /// <param name="facets"></param>
+        /// <returns></returns>
+        ICollection<KeyValuePair<string, int>> FacetIntervalQuery(SolrFacetIntervalQuery facets);
     }
 }
