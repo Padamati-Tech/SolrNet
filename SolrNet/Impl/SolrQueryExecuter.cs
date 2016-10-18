@@ -133,6 +133,9 @@ namespace SolrNet.Impl {
             yield return KV.Create("q", querySerializer.Serialize(Query));
             if (options == null)
                 yield break;
+		
+	    if (!string.IsNullOrEmpty(options.Shards))
+                yield return KV.Create("shards", options.Shards);
 
             foreach (var p in GetCommonParameters(options))
                 yield return p;
@@ -674,7 +677,20 @@ namespace SolrNet.Impl {
             resultParser.Parse(xml, results);
             return results;
         }
-
+	
+	/// <summary>
+        /// Executes the query and returns results
+        /// </summary>
+        /// <returns>query results</returns>
+        public XDocument Execute(ISolrQuery q, QueryOptions options,bool xmlResultEnable)
+        {
+            var param = GetAllParameters(q, options);
+            var results = new SolrQueryResults<T>();
+            var r = connection.Get(Handler, param);
+            var xml = XDocument.Parse(r);
+            return xml;
+        }
+	    
         /// <summary>
         /// Executes a MoreLikeThis handler query
         /// </summary>
